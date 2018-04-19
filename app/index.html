@@ -14,21 +14,39 @@
     <!-- endbuild -->
     <script>
         var page = Page({
-            data:function(){
+            data: function () {
                 return {
-                    page:this.extend({a:1},{b:2})
+                    page: this.extend({
+                        a: 1
+                    }, {
+                        b: 2
+                    }),
+                    page1: 'test'
                 }
             },
-            ready:function(){
-                console.log(this.page);
+            ready: function () {
+                this.test();
+                console.log(this.page1)
+                this.test1();
             },
-            load:function(){
+            load: function () {
                 // console.log(this.page+1)
             },
-            methods:{
-
+            methods: {
+                test: function () {
+                    console.log(this.page)
+                    console.log(this.extend({
+                        a: 1
+                    }, {
+                        b: 10
+                    }));
+                },
+                test1: function () {
+                    this.test();
+                }
             }
         })
+
     </script>
 </body>
 

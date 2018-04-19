@@ -1,12 +1,9 @@
 //创建原型
 var APP = function () {
-    this.a = 1;
+    // this.a = 1;
 }
 
 APP.prototype = { //添加原型的一些方法
-    aa: function (d) {
-        console.log(d);
-    },
     extend(a, b) {
         for (let key in b) {
             a[key] = b[key]
@@ -15,9 +12,9 @@ APP.prototype = { //添加原型的一些方法
     },
     documentReady(fn) {
         if (document.addEventListener) { //兼容非IE
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener('DOMContentLoaded', function () {
                 //注销事件，避免反复触发
-                document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                document.removeEventListener('DOMContentLoaded', arguments.callee, false);
                 fn(); //调用参数函数
             }, false);
         } else if (document.attachEvent) { //兼容IE
@@ -90,6 +87,13 @@ var Page = function (obj) {
             app.extend(app,a)
         }
     }
+    if(obj.methods){//添加方法
+        var m = obj.methods;
+        if (checkKeys(APP.prototype, m)) { //检测是否占用关键字段
+            app.extend(app,m)
+        }
+
+    }
     if (obj.ready) { //ready事件
         app.documentReady(() => {
             //执行ready事件
@@ -102,5 +106,6 @@ var Page = function (obj) {
             obj.load.call(app)
         })
     }
+    
     return app;
 }
