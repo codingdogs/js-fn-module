@@ -1,0 +1,26 @@
+{
+  "name": "js-fn-module",
+  "homepage": "https://github.com/codingdogs/js-fn-module",
+  "version": "0.1.0",
+  "authors": [
+    "严浩韦 <704175885@qq.com>"
+  ],
+  "description": "普通web站js和vue中的方法和数据分离开来，便于查看页面js逻辑",
+  "main": "",
+  "keywords": [
+    "js-fn-module"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "^3.3.1",
+    "extend": "^0.1.1"
+  }
+}
