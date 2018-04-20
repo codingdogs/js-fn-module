@@ -1,7 +1,16 @@
 # js-fn-module
 解决普通建站页面js代码混乱的问题，js执行代码越多会越乱。
 > 像vue一样去写我们普通的前端代码，各种this的应用，便于页面功能模块的整理修改，以及相互调用，数据修改。
-
+
+### get start(bower或者npm)
+- bower
+    ``` shell
+    bower install --save-dev js-fn-module
+    ```
+- npm
+    ``` shell
+    npm install --save-dev js-fn-module
+    ```
 ### 先来一段vue代码压压惊
 > 下面代码可以看到this的妙用，this的调用很频繁，created会自动执行，methods之中定义的函数可以直接用this拿到data的数据，data可以直接调用插件的方法。
 
