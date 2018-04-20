@@ -7,42 +7,76 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>js-fn-module</title>
 </head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .list {
+        margin-top: 50px;
+    }
+
+    .list li {
+        padding: 15px 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fefefe;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top:10px;
+    }
+
+    .list li:nth-of-type(odd) {
+        background-color: #fafafa;
+    }
+
+    .red {
+        color: red;
+    }
+
+</style>
 
 <body>
+    <ul class="list">
+        <li>document.ready时间：
+            <span class="red" id='first'></span>
+        </li>
+        <li>window.onload时间：
+            <span class="red" id='second'></span>
+        </li>
+        <li>
+            插件add.js结果：
+            <span class="red" id='third'></span>
+        </li>
+    </ul>
     <!-- build:js scripts/js-fn-module.min.js -->
-    <script src="scripts/index.js"></script>
+    <script src="scripts/js-fn-module.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor.min.js -->
+    <script src="scripts/modules/add.js"></script>
     <!-- endbuild -->
     <script>
+        var time = +new Date();
         var page = Page({
             data: function () {
                 return {
-                    page: this.extend({
-                        a: 1
-                    }, {
-                        b: 2
-                    }),
-                    page1: 'test'
+                    t: +new Date(),
+                    num:this.add(2,4)
                 }
             },
             ready: function () {
-                this.test();
-                console.log(this.page1)
-                this.test1();
+                this.time('first');
+                document.getElementById('third').innerHTML = this.num;
             },
             load: function () {
-                // console.log(this.page+1)
+                this.time('second');
             },
             methods: {
-                test: function () {
-                    console.log(this.page)
-                    console.log(this.extend({
-                        a: 1
-                    }, {
-                        b: 10
-                    }));
-                },
-                test1: function () {
-                    this.test();
+                time: function (id) {
+                    var t = +new Date();
+                    document.getElementById(id).innerHTML = t - this.t + 'ms'
                 }
             }
         })

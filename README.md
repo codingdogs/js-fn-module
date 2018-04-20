@@ -35,33 +35,21 @@ export default {
 var page = Page({
     data: function () {
         return {
-            page: this.extend({
-                a: 1
-            }, {
-                b: 2
-            }),
-            page1: 'test'
+            t: +new Date(),
+            num:this.add(2,4)
         }
     },
     ready: function () {
-        this.test();
-        console.log("ready",this.page1);
-        this.test1();
+        this.time('first');
+        document.getElementById('third').innerHTML = this.num;
     },
     load: function () {
-        console.log("load",this.page)
+        this.time('second');
     },
     methods: {
-        test: function () {
-            console.log(this.page)
-            console.log(this.extend({
-                a: 1
-            }, {
-                b: 10
-            }));
-        },
-        test1: function(){
-        	this.test();
+        time: function (id) {
+            var t = +new Date();
+            document.getElementById(id).innerHTML = t - this.t + 'ms'
         }
     }
 })
@@ -84,5 +72,28 @@ var page = Page({
 | extend        | Function  |             | 和jquery,angular的extend类似|
 
 ### 添加插件方法
-之后详细说明
+> 再引入js-fn-module.js之后就可以注册插件。在页面调用之前引入，这样就可以愉快的使用插件了。
 
+```javascript
+APP.prototype.add = function (a, b) {
+    if (a && b) {
+        return a + b;
+    } else {
+        return 0;
+    }
+}
+```
+### 书写插件项目启动方式
+> git clone 本项目之后可以启动项目，查看源代码，更去了解原理
+- clone 项目
+    ```shell
+    $ git clone https://github.com/codingdogs/js-fn-module.git
+    ```
+- 下载npm依赖包
+    ```shell
+    $ npm i
+    ```
+- 创建server，打开本地调试
+    ```shell
+    $ npm start
+    ```

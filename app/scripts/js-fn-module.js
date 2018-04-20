@@ -71,11 +71,11 @@ APP.prototype = { //添加原型的一些方法
 var Page = function (obj) {
     var app = new APP(); //添加APP的方法
     //检查prototype字段是否占用
-    function checkKeys(check, keys) { //check为检查对象,keys为要检查的对象
+    function checkKeys(check, keys, d) { //check为检查对象,keys为要检查的对象
         var flag = true;
         for (let key in keys) {
             if (check.hasOwnProperty(key)) {
-                console.error(`data参数[${key}]为关键字段，请重新命名！！！`);
+                console.error(`${d}参数[${key}]为关键字段或者出现多个相同参数，为避免覆盖，请重新命名！！！`);
                 flag = false;
             }
         }
@@ -83,16 +83,19 @@ var Page = function (obj) {
     }
     if (obj.data) { //数据
         var a = obj.data.call(app);
-        if (checkKeys(APP.prototype, a)) { //检测是否占用关键字段
-            app.extend(app,a)
+        if (checkKeys(APP.prototype, 'data')) { //检测是否占用关键字段
+            app.extend(app, a)
+        }else{
+            return false;
         }
     }
-    if(obj.methods){//添加方法
+    if (obj.methods) { //添加方法
         var m = obj.methods;
-        if (checkKeys(APP.prototype, m)) { //检测是否占用关键字段
-            app.extend(app,m)
+        if (checkKeys(APP.prototype, m, 'methods') && checkKeys(app, m, 'methods')) { //检测是否占用关键字段
+            app.extend(app, m)
+        }else{
+            return false;
         }
-
     }
     if (obj.ready) { //ready事件
         app.documentReady(() => {
@@ -106,6 +109,6 @@ var Page = function (obj) {
             obj.load.call(app)
         })
     }
-    
+
     return app;
 }
