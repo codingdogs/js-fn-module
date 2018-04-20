@@ -83,17 +83,18 @@ APP.prototype.add = function (a, b) {
     }
 }
 ```
-### 书写插件项目启动方式
+
+### 书写插件项目启动方式
 > git clone 本项目之后可以启动项目，查看源代码，更去了解原理
 - clone 项目
     ```shell
     $ git clone https://github.com/codingdogs/js-fn-module.git
     ```
-- 下载npm依赖包
+- 下载npm依赖包
     ```shell
     $ npm i
     ```
-- 创建server，打开本地调试
+- 创建server，打开本地调试
     ```shell
     $ npm start
     ```
