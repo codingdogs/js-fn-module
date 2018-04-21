@@ -1,14 +1,12 @@
-"use strict";
+'use strict';
 
 //创建原型
 var APP = function APP() {
-    this.a = 1;
+    // this.a = 1;
 };
 
-APP.prototype = { //添加原型的一些方法
-    aa: function aa(d) {
-        console.log(d);
-    },
+APP.prototype = {
+    //添加原型的一些方法
     extend: function extend(a, b) {
         for (var key in b) {
             a[key] = b[key];
@@ -18,9 +16,9 @@ APP.prototype = { //添加原型的一些方法
     documentReady: function documentReady(fn) {
         if (document.addEventListener) {
             //兼容非IE
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener('DOMContentLoaded', function () {
                 //注销事件，避免反复触发
-                document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                document.removeEventListener('DOMContentLoaded', arguments.callee, false);
                 fn(); //调用参数函数
             }, false);
         } else if (document.attachEvent) {
@@ -80,12 +78,12 @@ APP.prototype = { //添加原型的一些方法
 var Page = function Page(obj) {
     var app = new APP(); //添加APP的方法
     //检查prototype字段是否占用
-    function checkKeys(check, keys) {
+    function checkKeys(check, keys, d) {
         //check为检查对象,keys为要检查的对象
         var flag = true;
         for (var key in keys) {
             if (check.hasOwnProperty(key)) {
-                console.error("data\u53C2\u6570[" + key + "]\u4E3A\u5173\u952E\u5B57\u6BB5\uFF0C\u8BF7\u91CD\u65B0\u547D\u540D\uFF01\uFF01\uFF01");
+                console.error(d + '\u53C2\u6570[' + key + ']\u4E3A\u5173\u952E\u5B57\u6BB5\u6216\u8005\u51FA\u73B0\u591A\u4E2A\u76F8\u540C\u53C2\u6570\uFF0C\u4E3A\u907F\u514D\u8986\u76D6\uFF0C\u8BF7\u91CD\u65B0\u547D\u540D\uFF01\uFF01\uFF01');
                 flag = false;
             }
         }
@@ -94,9 +92,21 @@ var Page = function Page(obj) {
     if (obj.data) {
         //数据
         var a = obj.data.call(app);
-        if (checkKeys(APP.prototype, a)) {
+        if (checkKeys(APP.prototype, 'data')) {
             //检测是否占用关键字段
             app.extend(app, a);
+        } else {
+            return false;
+        }
+    }
+    if (obj.methods) {
+        //添加方法
+        var m = obj.methods;
+        if (checkKeys(APP.prototype, m, 'methods') && checkKeys(app, m, 'methods')) {
+            //检测是否占用关键字段
+            app.extend(app, m);
+        } else {
+            return false;
         }
     }
     if (obj.ready) {
@@ -113,6 +123,7 @@ var Page = function Page(obj) {
             obj.load.call(app);
         });
     }
+
     return app;
 };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=js-fn-module.js.map
