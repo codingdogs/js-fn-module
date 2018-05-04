@@ -1,3 +1,4 @@
+'use strict';
 //创建原型
 var APP = function () {
     // this.a = 1;
@@ -14,7 +15,7 @@ APP.prototype = { //添加原型的一些方法
         if (document.addEventListener) { //兼容非IE
             document.addEventListener('DOMContentLoaded', function () {
                 //注销事件，避免反复触发
-                document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+                // document.removeEventListener('DOMContentLoaded', arguments.callee, false);
                 fn(); //调用参数函数
             }, false);
         } else if (document.attachEvent) { //兼容IE

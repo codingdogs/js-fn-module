@@ -1,6 +1,6 @@
-'use strict';
-
+"use strict";
 //创建原型
+
 var APP = function APP() {
     // this.a = 1;
 };
@@ -18,7 +18,7 @@ APP.prototype = {
             //兼容非IE
             document.addEventListener('DOMContentLoaded', function () {
                 //注销事件，避免反复触发
-                document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+                // document.removeEventListener('DOMContentLoaded', arguments.callee, false);
                 fn(); //调用参数函数
             }, false);
         } else if (document.attachEvent) {
@@ -126,4 +126,3 @@ var Page = function Page(obj) {
 
     return app;
 };
-//# sourceMappingURL=js-fn-module.js.map

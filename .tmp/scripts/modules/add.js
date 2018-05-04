@@ -7,4 +7,3 @@ APP.prototype.add = function (a, b) {
         return 0;
     }
 };
-//# sourceMappingURL=add.js.map
